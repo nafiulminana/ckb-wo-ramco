@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+    <settings
+        enhancementEnabled="true"
+        useStatementNamespaces="true"
+        />
+    
+    <typeHandler callback="com.ckb.wo.server.dao.ibatis.typehandler.StringNullTypeHandler" javaType="string" jdbcType="VARCHAR" />
+     
+    <sqlMap resource="com/ckb/wo/server/dao/tlocation_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tvendor_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tvendorservice_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tservicetype_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tservicemode_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tservicemodedetail_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/torder_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tdeliveryterm_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/oricontainer_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/orivendorrate_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/ibatistest_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tdepartment_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tdivision_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tjobtitle_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tlevel_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tarea_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tuser_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tworkorder_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tnotes_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tworkorder_da_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tworkorder_manifest_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tworkorder_smodedetail_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tcurrency_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tworkorderflow_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tworkorderhistory_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/trole_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tpermission_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/trole_tpermission_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/trole_tuser_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/tauditwo_SqlMap.xml"/>
+</sqlMapConfig>

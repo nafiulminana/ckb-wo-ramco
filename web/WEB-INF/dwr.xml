@@ -1,0 +1,25 @@
+<!DOCTYPE dwr PUBLIC
+"-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN"
+"http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+<dwr>
+    <allow>
+        <create creator="new" javascript="Vendor">
+            <param name="class" value="com.ckb.wo.client.listener.VendorListener"/>
+        </create>
+        <create creator="new" javascript="WorkOrder">
+            <param name="class" value="com.ckb.wo.client.listener.WorkOrderListener"/>
+        </create>
+        <create creator="new" javascript="AppMod">
+            <param name="class" value="com.ckb.wo.client.listener.WorkOrderAppList"/>
+        </create>
+        <create creator="new" javascript="Fin">
+            <param name="class" value="com.ckb.wo.client.listener.WorkOrderFinList"/>
+        </create>
+        <create creator="new" javascript="User">
+            <param name="class" value="com.ckb.wo.client.listener.UserList"/>
+        </create>
+        <create creator="new" javascript="Admin">
+            <param name="class" value="com.ckb.wo.client.listener.AdminListener"/>
+        </create>
+    </allow>
+</dwr>

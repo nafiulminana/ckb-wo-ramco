@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+    <settings
+        enhancementEnabled="true"
+        useStatementNamespaces="true"
+        />
+    <sqlMap resource="com/ckb/wo/server/dao/mda/t_manifest_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/mda/t_manifest_detail_SqlMap.xml"/>    
+    <sqlMap resource="com/ckb/wo/server/dao/mda/t_shipment_SqlMap.xml"/>    
+</sqlMapConfig>

@@ -1,0 +1,314 @@
+body 
+{
+    background-color:#FFFFFF;
+    background-image:none;
+    padding:0;
+    margin:0;
+}
+#sitemain 
+{
+    position:relative;
+    clear:both;
+    width:760px;
+    background-color:transparent;
+    font-size:10px;
+    margin:0 auto 0 auto;
+}
+#group5 
+{
+    position:relative;
+    float:left;
+    clear:both;
+    width:760px;
+    height:118px;
+    background-color:transparent;
+    font-size:10px;
+    z-index:90;
+}
+#group4 
+{
+    position:relative;
+    float:left;
+    clear:both;
+    width:760px;
+    height:86px;
+    background-color:transparent;
+    font-size:10px;
+}
+#logo2 
+{
+    position:relative;
+    float:left;
+    clear:both;
+    width:760px;
+    height:86px;
+    background:#FFFFFF url("images/slt1.gif") repeat;
+    font-size:10px;
+}
+#logo2 img 
+{
+    position:relative;
+    left:20px;
+    top:13px;
+    border:0}
+#group10 
+{
+    position:relative;
+    float:left;
+    clear:both;
+    width:760px;
+    height:32px;
+    background-color:transparent;
+    font-size:10px;
+    z-index:90;
+}
+#menu2 
+{
+    position:relative;
+    float:left;
+    width:760px;
+    height:32px;
+    background:#D3D3D3 url("images/stp1.gif") repeat-x;
+    font-family:arial,sans-serif;
+    font-weight:bold;
+    font-size:10px;
+    z-index:90;
+}
+#menu2 ul 
+{
+    margin:0;
+    padding:0 0 0 5px;
+    font-size:12px;
+}
+#menu2 li 
+{
+    float:left;
+    overflow:inherit;
+    list-style-type:none;
+    margin:0;
+    padding:0;
+} 
+#menu2 a 
+{
+    float:left;
+    height:25px;
+    text-decoration:none;
+    margin:0;
+    padding:7px 10px 0;
+    display:block;
+    color:#555555;
+}
+#menu2 a.first 
+{
+    margin:0;
+    padding:7px 10px 0;
+} 
+#menu2 a:hover 
+{
+    background:#87CEFA;
+}
+#menu2 .SubMenu 
+{
+    position:absolute;
+    display:none;
+    z-index:101;
+    font-size:12px;
+    font-weight:bold;
+}
+#menu2 .SubMenu ul 
+{
+    float:left;
+    margin:0;
+    padding:0;
+    font-size:12px;
+}
+#menu2 .SubMenu li 
+{
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    float:none;
+}
+#menu2 .SubMenu a 
+{
+    text-decoration:none;
+    display:block;
+    width:140px;
+    height:20px;
+    margin:0;
+    padding:5px 0px 0px 10px;
+    color:#555555;
+    background:#D3D3D3;
+    float:none;
+}
+#menu2 .SubMenu a:hover 
+{
+    background:#87CEFA;
+}
+#group9 
+{
+    position:relative;
+    float:left;
+    clear:both;
+    width:760px;
+    background-color:transparent;
+    font-size:10px;
+}
+#textbox2 
+{
+    position:relative;
+    float:left;
+    width:760px;
+    background-color:transparent;
+    font-size:10px;
+}
+#textbox2 .lt 
+{
+    position:relative;
+    float:left;
+    background: url("images/dot1.gif") 0 0 repeat-x;
+    width:100%;
+}
+#textbox2 .ll 
+{
+    position:relative;
+    float:left;
+    background: url("images/dot1.gif") 0 0 repeat-y;
+    width:100%;
+}
+#textbox2 .lb 
+{
+    position:relative;
+    float:left;
+    background: url("images/li1.gif") 0 100% repeat-x;
+    width:100%;
+}
+#textbox2 .lr 
+{
+    position:relative;
+    float:left;
+    background: url("images/li2.gif") 100% 0 repeat-y;
+    width:100%;
+}
+#textbox2 .br 
+{
+    position:relative;
+    float:left;
+    background: url("images/br1.gif") 100% 100% no-repeat;
+    width:100%;
+}
+#textbox2 .bspc 
+{
+    padding-bottom:20px;
+    clear:both;
+    font-size:1px;
+}
+#textbox2 .boxsp 
+{
+    position:relative;
+    background:transparent;
+    font-size:1px;
+}
+#textbox2 .box 
+{
+    position:relative;
+    font-size:1px;
+    left:15px;
+    top:10px;
+    height:300px;
+}
+#textbox2 h1 
+{
+    font-family:tahoma,verdana,sans-serif;
+    font-size:24px;
+    font-weight:bold;
+    color:#0080FF;
+    margin:0;
+}
+#textbox2 h2 
+{
+    position:relative;
+    top:5px;
+    left:10px;
+    font-family:arial;
+    font-size:18px;
+    font-weight:bold;
+    color:#87CEEB;
+    margin:0;
+}
+#textbox2 p 
+{
+    position:relative;
+    top:15px;
+    left:12px;
+    padding-right:45px;
+    font-family:arial;
+    font-size:12px;
+    font-weight:normal;
+    color:#000000;
+    margin:0;
+}
+#grpfoot 
+{
+    position:relative;
+    float:left;
+    clear:both;
+    width:760px;
+    height:50px;
+    background-color:transparent;
+    font-size:10px;
+}
+#footer 
+{
+    position:relative;
+    float:left;
+    clear:both;
+    width:760px;
+    height:24px;
+    background-color:transparent;
+    font-family:verdana,arial,sans-serif;
+    font-size:10px;
+}
+#footer .tag 
+{
+    position:relative;
+    text-align:center;
+    top:7px;
+    clear:both;
+}
+#footer .tag a:link, a:visited 
+{
+    text-decoration:none;
+    color:#0080FF;
+}
+#footer .tag a:hover 
+{
+    text-decoration:underline;
+}
+#footer2 
+{
+    position:relative;
+    float:left;
+    clear:both;
+    width:760px;
+    height:26px;
+    background-color:transparent;
+    font-family:verdana,arial,sans-serif;
+    font-size:10px;
+}
+#footer2 .tag 
+{
+    position:relative;
+    text-align:center;
+    top:3px;
+    clear:both;
+}
+#footer2 .tag a:link, a:visited 
+{
+    text-decoration:none;
+    color:#0080FF;
+}
+#footer2 .tag a:hover 
+{
+    text-decoration:underline;
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="t_currency_rates">
+    <resultMap id="baseResultMap" class="com.ckb.wo.client.model.CurrencyRate" >
+        <result column="currency_type_id" property="currencyTypeId" jdbcType="VARCHAR" />
+        <result column="rate_date" property="rateDate" jdbcType="DATE" />
+        <result column="rates" property="rates" jdbcType="DECIMAL" />
+        <result column="rate_type" property="rateType" jdbcType="INTEGER" />
+        <result column="rate_date_to" property="rateDateTo" jdbcType="DATE" />
+    </resultMap>
+    
+    <select id="selectCurrencyRateByDate" resultMap="baseResultMap" parameterClass="java.util.Map" >
+        select
+        currency_type_id,
+        rate_date,
+        rates,
+        rate_type,
+        rate_date_to
+        from t_currency_rates
+        where rate_date_to <![CDATA[ = ]]> #date# and rate_date <![CDATA[ = ]]> #date#
+        and currency_type_id = #currencyCode#
+    </select>
+</sqlMap>

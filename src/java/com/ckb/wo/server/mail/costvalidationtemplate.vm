@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body,td,th {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+-->
+</style></head>
+
+<body>
+
+<table width="97%" border="1" cellpadding="3" cellspacing="0">
+  <tr>
+    <td colspan="2" bgcolor="#FFFF66"><strong>Work Order Alert !</strong></td>
+  </tr>
+  <tr>
+    <td>Action :</td>
+    <td><strong>NEED YOUR VALIDATION</strong></td>
+  </tr>
+  <tr>
+    <td width="25%">WO No.</td>
+    <td width="75%"><strong>${workOrder.nomorwo}</strong></td>
+  </tr>
+  <tr>
+    <td>Created By :</td>
+    <td>${user.firstName} ${user.middleName} ${user.lastName}</td>
+  </tr>
+  <tr>
+    <td>Created Date :</td>
+    <td>$dateFormatter.format($workOrder.createddate)</td>
+  </tr>
+  <tr>
+    <td>Type of WO :</td>
+    <td>#if( ${workOrder.adhoc} )
+			Adhoc	
+		#else
+			Reguler
+		#end        
+    </td>
+  </tr>
+  <tr>
+    <td>Approval Type :</td>
+    <td>( 
+    	#foreach( $level in $approvalType )
+    		$level.levelId -
+		#end
+        )    
+    </td>
+  </tr>
+</table>
+</body>
+</html>   
+   
+    

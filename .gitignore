@@ -1,0 +1,6 @@
+dist/*
+build/*
+src/java/config.properties
+src/java/spring.properties
+*.properties
+src/java/com/ckb/wo/server/service/util/GlobalServiceUtil.java

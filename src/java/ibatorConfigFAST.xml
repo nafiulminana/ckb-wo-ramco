@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ibatorConfiguration
+  PUBLIC "-//Apache Software Foundation//DTD Apache iBATIS Ibator Configuration 1.0//EN"
+  "http://ibatis.apache.org/dtd/ibator-config_1_0.dtd">
+
+<ibatorConfiguration>
+<ibatorContext 
+  id="ibatorContext" 
+  targetRuntime="Ibatis2Java5" 
+  defaultModelType="flat">
+
+<ibatorPlugin type="org.apache.ibatis.ibator.plugins.SerializablePlugin"/>
+<ibatorPlugin type="com.ckb.wo.server.ibator.plugins.AddLimitClausePlugin" />
+<ibatorPlugin type="org.apache.ibatis.ibator.plugins.EqualsHashCodePlugin" />
+
+<jdbcConnection 
+  driverClass="com.mysql.jdbc.Driver"
+  connectionURL="jdbc:mysql://10.10.3.5:3306/employee"
+  userId="woproj" 
+  password="12345">
+</jdbcConnection>
+
+<javaModelGenerator targetPackage="com.ckb.wo.client.model"
+  targetProject="WorkOrderManagement">
+  <property name="enableSubPackages" value="true" />
+  <property name="trimStrings" value="true" />
+</javaModelGenerator>
+
+<sqlMapGenerator targetPackage="com.ckb.wo.server.dao.fast"
+  targetProject="WorkOrderManagement">
+  <property name="enableSubPackages" value="true" />
+</sqlMapGenerator>
+
+<daoGenerator type="SPRING" 
+targetPackage="com.ckb.wo.server.dao.fast"
+implementationPackage="com.ckb.wo.server.dao.fast.ibatis.impl"
+targetProject="WorkOrderManagement">
+  <property name="enableSubPackages" value="true" />
+  <property name="methodNameCalculator" value="extended" />
+</daoGenerator>
+
+
+<table tableName="t_personel" domainObjectName="FastUser" >
+<ignoreColumn column="nick_name"/>
+<ignoreColumn column="initial_name"/>
+<ignoreColumn column="created_by"/>
+<ignoreColumn column="created_date"/>
+<ignoreColumn column="blood_type"/>
+<ignoreColumn column="gender"/>
+<ignoreColumn column="birth_place"/>
+<ignoreColumn column="birth_date"/>
+<ignoreColumn column="current_address1"/>
+<ignoreColumn column="current_address2"/>
+<ignoreColumn column="current_kelurahan_id"/>
+<ignoreColumn column="current_kecamatan_id"/>
+<ignoreColumn column="current_city_id"/>
+<ignoreColumn column="current_province_id"/>
+<ignoreColumn column="current_postal_code"/>
+<ignoreColumn column="current_country_id"/>
+<ignoreColumn column="phone_no"/>
+<ignoreColumn column="mobile_phone"/>
+<ignoreColumn column="other_phone_no"/>
+<ignoreColumn column="official_address1"/>
+<ignoreColumn column="official_address2"/>
+<ignoreColumn column="official_kelurahan_id"/>
+<ignoreColumn column="official_kecamatan_id"/>
+<ignoreColumn column="official_city_id"/>
+<ignoreColumn column="official_province_id"/>
+<ignoreColumn column="official_postal_code"/>
+<ignoreColumn column="official_country_id"/>
+<ignoreColumn column="id_no"/>
+<ignoreColumn column="npwp"/>
+<ignoreColumn column="working_insurance"/>
+<ignoreColumn column="pension_fund"/>
+<ignoreColumn column="other_insurance"/>
+<ignoreColumn column="marital_status_id"/>
+<ignoreColumn column="marital_anniversary_date"/>
+<ignoreColumn column="children"/>
+<ignoreColumn column="religion_id"/>
+<ignoreColumn column="self_picture"/>
+<ignoreColumn column="signature"/>
+<ignoreColumn column="annual_leave_platform"/>
+<ignoreColumn column="annual_leave_remain"/>
+<ignoreColumn column="leave_starting_date"/>
+<ignoreColumn column="leave_end_date"/>
+<ignoreColumn column="company_id"/>
+<ignoreColumn column="ip_address"/>
+<ignoreColumn column="phone_ext"/>
+<ignoreColumn column="notes"/>
+<ignoreColumn column="contact_first_name"/>
+<ignoreColumn column="contact_middle_name"/>
+<ignoreColumn column="contact_last_name"/>
+<ignoreColumn column="contact_relation_id"/>
+<ignoreColumn column="contact_phone"/>
+<ignoreColumn column="contact_mobile"/>
+<ignoreColumn column="contact_address1"/>
+<ignoreColumn column="contact_address2"/>
+<ignoreColumn column="contact_kelurahan_id"/>
+<ignoreColumn column="contact_kecamatan_id"/>
+<ignoreColumn column="contact_city_id"/>
+<ignoreColumn column="contact_province_id"/>
+<ignoreColumn column="contact_postal_code"/>
+<ignoreColumn column="contact_country_id"/>
+<ignoreColumn column="agreement_letter_no"/>
+<ignoreColumn column="agreement_date"/>
+<ignoreColumn column="agreement_efective_date"/>
+<ignoreColumn column="employment_date"/>
+<ignoreColumn column="employment_end_date"/>
+<ignoreColumn column="employment_end_reason"/>
+<ignoreColumn column="employment_status_id"/>
+<ignoreColumn column="permanent_date"/>
+<ignoreColumn column="contract_end_date"/>
+<ignoreColumn column="probation_end_date"/>
+<ignoreColumn column="medical_platform_period"/>
+<ignoreColumn column="out_patient_platform"/>
+<ignoreColumn column="doctor_platform"/>
+<ignoreColumn column="specialist_doctor_platform"/>
+<ignoreColumn column="out_patient_remains"/>
+<ignoreColumn column="room_platform"/>
+<ignoreColumn column="maternity_platform"/>
+<ignoreColumn column="frame_platform"/>
+<ignoreColumn column="lens_platform"/>
+<ignoreColumn column="user_updated"/>
+<ignoreColumn column="datetime_updated"/>	
+</table>
+<table tableName="t_division" domainObjectName="FastDivision" >
+	<ignoreColumn column="user_updated"/>
+	<ignoreColumn column="datetime_updated"/>
+</table>
+<table tableName="t_department" domainObjectName="FastDepartment" >
+	<ignoreColumn column="user_updated"/>
+	<ignoreColumn column="datetime_updated"/>
+</table>	
+<table tableName="t_job_title" domainObjectName="FastJobTitle" >
+	<ignoreColumn column="user_updated"/>
+	<ignoreColumn column="datetime_updated"/>
+</table>	
+<table tableName="t_level" domainObjectName="FastLevel" >
+	<ignoreColumn column="user_updated"/>
+	<ignoreColumn column="datetime_updated"/>
+</table>	
+	
+
+
+
+</ibatorContext>
+</ibatorConfiguration>

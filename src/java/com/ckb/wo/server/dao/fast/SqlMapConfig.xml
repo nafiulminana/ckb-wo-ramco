@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+    <settings
+        enhancementEnabled="true"
+        useStatementNamespaces="true"
+        />
+    <sqlMap resource="com/ckb/wo/server/dao/fast/t_department_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/fast/t_division_SqlMap.xml"/>    
+    <sqlMap resource="com/ckb/wo/server/dao/fast/t_job_title_SqlMap.xml"/>
+    <sqlMap resource="com/ckb/wo/server/dao/fast/t_level_SqlMap.xml"/>    
+    <sqlMap resource="com/ckb/wo/server/dao/fast/t_personel_SqlMap.xml"/>
+</sqlMapConfig>

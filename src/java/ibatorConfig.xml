@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ibatorConfiguration
+  PUBLIC "-//Apache Software Foundation//DTD Apache iBATIS Ibator Configuration 1.0//EN"
+  "http://ibatis.apache.org/dtd/ibator-config_1_0.dtd">
+
+<ibatorConfiguration>
+<ibatorContext 
+  id="ibatorContext" 
+  targetRuntime="Ibatis2Java5" 
+  defaultModelType="flat">
+
+<ibatorPlugin type="org.apache.ibatis.ibator.plugins.SerializablePlugin"/>
+<ibatorPlugin type="com.ckb.wo.server.ibator.plugins.AddLimitClausePlugin" />
+<ibatorPlugin type="org.apache.ibatis.ibator.plugins.EqualsHashCodePlugin" />
+
+<jdbcConnection 
+  driverClass="com.mysql.jdbc.Driver"
+  connectionURL="jdbc:mysql://localhost:3306/old_ckb"
+  userId="root" 
+  password="root">
+</jdbcConnection>
+
+<javaModelGenerator targetPackage="com.ckb.wo.client.model"
+  targetProject="WorkOrderManagement">  
+  <property name="enableSubPackages" value="true" />
+  <property name="trimStrings" value="true" />
+</javaModelGenerator>
+
+<sqlMapGenerator targetPackage="com.ckb.wo.server.dao"
+  targetProject="WorkOrderManagement">
+  <property name="enableSubPackages" value="true" />
+</sqlMapGenerator>
+
+<daoGenerator type="SPRING" 
+targetPackage="com.ckb.wo.server.dao"
+implementationPackage="com.ckb.wo.server.dao.ibatis.impl"
+targetProject="WorkOrderManagement">
+  <property name="enableSubPackages" value="true" />
+  <property name="methodNameCalculator" value="extended" />
+</daoGenerator>
+
+<table tableName="tvendor" domainObjectName="Vendor" >
+	<generatedKey column="tvendor_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tvendor_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tlocation_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+
+
+<table tableName="tvendorservice" domainObjectName="VendorService">
+	<generatedKey column="tvendorservice_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tvendorservice_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tvendor_fk" javaType="java.lang.Long" jdbcType="LONG"/>	
+	<columnOverride column="tservicetype_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tservicemode_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tservicemodedetail_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="torder_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tdeliveryterm_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="origintlocation_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="destinationtlocation_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tcurrency_fk" javaType="java.lang.Long" jdbcType="LONG"/>	
+</table>
+<table tableName="tlocation" domainObjectName="Location">
+	<generatedKey column="tlocation_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tlocation_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+<table tableName="tservicetype" domainObjectName="ServiceType">
+	<generatedKey column="tservicetype_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tservicetype_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+<table tableName="tservicemode" domainObjectName="ServiceMode">
+	<generatedKey column="tservicemode_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tservicemode_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tservicetype_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+<table tableName="tservicemodedetail" domainObjectName="ServiceModeDetail">
+	<generatedKey column="tservicemodedetail_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tservicemodedetail_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tservicemode_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+<table tableName="torder" domainObjectName="Order">
+	<generatedKey column="torder_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="torder_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+<table tableName="tdeliveryterm" domainObjectName="DeliveryTerm">
+	<generatedKey column="tdeliveryterm_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tdeliveryterm_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tservicemode_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+
+<table tableName="tuser" domainObjectName="User" alias="atuser"/>
+<table tableName="tarea" domainObjectName="Area" />	
+<table tableName="tdivision" domainObjectName="Division" />
+<table tableName="tdepartment" domainObjectName="Department" />	
+<table tableName="tjobtitle" domainObjectName="JobTitle" />	
+<table tableName="tlevel" domainObjectName="Level" />	
+
+<table tableName="tworkorder" domainObjectName="WorkOrder" alias="atworkorder">
+	<generatedKey column="tworkorder_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tworkorder_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tvendorservice_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="origintlocation_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="destinationtlocation_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tservicemode_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="torder_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tservicetype_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tvendor_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tdeliveryterm_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tvendorservice_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tcurrency_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+
+
+<table tableName="tworkorder_da" domainObjectName="WorkOrderDA">
+	<generatedKey column="tworkorder_da_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tworkorder_da_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="da" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+
+<table tableName="tworkorder_manifest" domainObjectName="WorkOrderManifest">
+	<generatedKey column="tworkorder_manifest_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tworkorder_manifest_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="manifest_no" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+
+<table tableName="tworkorder_smodedetail" domainObjectName="WorkOrderServiceModeDetail">
+	<generatedKey column="tworkorder_smodedetail_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tworkorder_smodedetail_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tservicemodedetail_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="smdtcurrency_fk" javaType="java.lang.Long" jdbcType="LONG"/>	
+</table>
+
+<table tableName="tcurrency" domainObjectName="Currency">
+	<generatedKey column="tcurrency_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tcurrency_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+
+<table tableName="tworkorderflow" domainObjectName="WorkOrderFlow">
+	<generatedKey column="tworkorderflow_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tworkorderflow_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tworkorder_fk" javaType="java.lang.Long" jdbcType="LONG"/>	
+</table>
+
+<table tableName="tworkorderhistory" domainObjectName="WorkOrderHistory">
+	<generatedKey column="tworkorderhistory_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tworkorderhistory_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tworkorder_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+
+<table tableName="trole" domainObjectName="Role">
+	<generatedKey column="trole_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="trole_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+
+<table tableName="tpermission" domainObjectName="Permission">
+	<generatedKey column="tpermission_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tpermission_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+
+<table tableName="trole_tuser" domainObjectName="RolesUsers">
+	<generatedKey column="trole_tuser_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="trole_tuser_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="trole_fk" javaType="java.lang.Long" jdbcType="LONG"/>	
+</table>
+
+<table tableName="trole_tpermission" domainObjectName="RolesPermissions">
+	<generatedKey column="trole_tpermission_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="trole_tpermission_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="trole_fk" javaType="java.lang.Long" jdbcType="LONG"/>	
+	<columnOverride column="tpermission_fk" javaType="java.lang.Long" jdbcType="LONG"/>	
+</table>
+
+<table tableName="tauditwo" domainObjectName="AuditWorkOrder" alias="atauditwo" >
+	<generatedKey column="tauditwo_pk" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+	<columnOverride column="tauditwo_pk" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="tworkorder_fk" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+
+
+<table tableName="orivendorrate" domainObjectName="OriVendorRate" />
+<table tableName="oricontainer" domainObjectName="OriContainer" />
+<table tableName="ibatistest" domainObjectName="IbatisTest" >
+	<columnOverride column="bigtest" javaType="java.lang.Long" jdbcType="LONG"/>
+	<columnOverride column="inttest" javaType="java.lang.Long" jdbcType="LONG"/>
+</table>
+
+
+</ibatorContext>
+</ibatorConfiguration>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ibatorConfiguration
+  PUBLIC "-//Apache Software Foundation//DTD Apache iBATIS Ibator Configuration 1.0//EN"
+  "http://ibatis.apache.org/dtd/ibator-config_1_0.dtd">
+
+<ibatorConfiguration>
+<ibatorContext 
+  id="ibatorContext" 
+  targetRuntime="Ibatis2Java5" 
+  defaultModelType="flat">
+
+<ibatorPlugin type="org.apache.ibatis.ibator.plugins.SerializablePlugin"/>
+<ibatorPlugin type="com.ckb.wo.server.ibator.plugins.AddLimitClausePlugin" />
+<ibatorPlugin type="org.apache.ibatis.ibator.plugins.EqualsHashCodePlugin" />
+
+<jdbcConnection 
+  driverClass="com.mysql.jdbc.Driver"
+  connectionURL="jdbc:mysql://10.10.3.5:3306/fast"
+  userId="woproj" 
+  password="12345">
+</jdbcConnection>
+
+<javaModelGenerator targetPackage="com.ckb.wo.client.model"
+  targetProject="WorkOrderManagement">
+  <property name="enableSubPackages" value="true" />
+  <property name="trimStrings" value="true" />
+</javaModelGenerator>
+
+<sqlMapGenerator targetPackage="com.ckb.wo.server.dao.mda"
+  targetProject="WorkOrderManagement">
+  <property name="enableSubPackages" value="true" />
+</sqlMapGenerator>
+
+<daoGenerator type="SPRING" 
+targetPackage="com.ckb.wo.server.dao.mda"
+implementationPackage="com.ckb.wo.server.dao.mda.ibatis.impl"
+targetProject="WorkOrderManagement">
+  <property name="enableSubPackages" value="true" />
+  <property name="methodNameCalculator" value="extended" />
+</daoGenerator>
+
+
+<table tableName="t_manifest" domainObjectName="MdaManifest" enableInsert="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableUpdateByExample="false" enableUpdateByPrimaryKey="false">
+	<columnOverride column="manifest_no" jdbcType="DECIMAL" javaType="java.lang.Long"/>
+	<ignoreColumn column="manifest_date"/>
+</table>
+<table tableName="t_manifest_detail" domainObjectName="MdaManifestDetail" enableInsert="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableUpdateByExample="false" enableUpdateByPrimaryKey="false">
+	<columnOverride column="manifest_no" jdbcType="DECIMAL" javaType="java.lang.Long"/>
+	<columnOverride column="da" jdbcType="DECIMAL" javaType="java.lang.Long"/>	
+</table>
+<table tableName="t_shipment" domainObjectName="Shipment" enableInsert="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableUpdateByExample="false" enableUpdateByPrimaryKey="false">
+	<columnOverride column="da" jdbcType="DECIMAL" javaType="java.lang.Long"/>
+	<columnOverride column="flag_shipment_received" jdbcType="ENUM" javaType="java.lang.String" />
+	<ignoreColumn column="created_date"/>
+	<ignoreColumn column="invoice_batch_date"/>
+	<ignoreColumn column="batch_received_date"/>
+	<ignoreColumn column="hold_date"/>
+	<ignoreColumn column="release_date"/>
+	<ignoreColumn column="reject_release_date"/>
+	<ignoreColumn column="quotation_release_date"/>
+	<ignoreColumn column="doc_date_completed"/>
+	<ignoreColumn column="created_date"/>
+</table>
+	
+</ibatorContext>
+</ibatorConfiguration>

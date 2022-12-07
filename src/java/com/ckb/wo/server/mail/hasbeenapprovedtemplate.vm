@@ -1,0 +1,10 @@
+<html>
+<body>
+<h3></h3>
+
+<div>
+   WorkOrder dengan nomor ${workOrder.nomorwo} telah disetujui.    
+</div>
+</body>
+
+</html>

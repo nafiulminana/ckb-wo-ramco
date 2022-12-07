@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1">
+        <file>
+            <url>src/java/com/ckb/wo/server/dao/tworkorder_SqlMap.xml</url>
+            <line>112</line>
+            <line>986</line>
+        </file>
+        <file>
+            <url>src/java/com/ckb/wo/server/service/impl/WorkOrderServiceImpl.java</url>
+            <line>300</line>
+        </file>
+        <file>
+            <url>src/java/com/ckb/wo/client/listener/WorkOrderListener.java</url>
+            <line>385</line>
+        </file>
+        <file>
+            <url>src/java/com/ckb/wo/server/service/impl/ManifestDAServiceImpl.java</url>
+            <line>135</line>
+        </file>
+    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/java/com/ckb/wo/server/service/impl/WorkOrderServiceImpl.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>0</line>
+                <key/>
+            </bookmark>
+            <bookmark id="1">
+                <name/>
+                <line>0</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/java/com/ckb/wo/client/listener/WorkOrderListener.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>445</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/CKB/java/git/live/web/welcome.jsp</file>
+            <file>file:/D:/CKB/java/git/live/src/java/com/ckb/wo/client/model/Department.java</file>
+            <file>file:/D:/CKB/java/git/live/web/main.jsp</file>
+            <file>file:/D:/CKB/java/git/live/src/java/com/ckb/wo/server/service/impl/UserServiceImpl.java</file>
+            <file>file:/D:/CKB/java/git/live/src/java/com/ckb/wo/server/service/util/UserLocalServiceUtil.java</file>
+            <file>file:/D:/CKB/java/git/live/src/java/com/ckb/wo/server/dao/masterparam/CurrencyRateDAO.java</file>
+            <file>file:/D:/CKB/java/git/live/web/WEB-INF/jsp/vendorservice/vendorserviceuploadratebatch.jsp</file>
+            <file>file:/D:/CKB/java/git/live/src/java/com/ckb/wo/server/service/IUserService.java</file>
+            <file>file:/D:/CKB/java/git/live/src/java/com/ckb/wo/client/model/Division.java</file>
+            <file>file:/D:/CKB/java/git/live/web/index.jsp</file>
+            <file>file:/D:/CKB/java/git/live/src/java/com/ckb/wo/client/listener/VendorServiceFileUploadRateServlet.java</file>
+        </group>
+    </open-files>
+</project-private>

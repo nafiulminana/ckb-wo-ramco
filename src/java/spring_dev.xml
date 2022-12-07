@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	     xmlns:aop="http://www.springframework.org/schema/aop"
+	     xmlns:tx="http://www.springframework.org/schema/tx"
+	     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+    <bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:spring.properties"/>
+    </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${driverClassName}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+
+    <bean id="dataSourceFast" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${FastdriverClassName}"/>
+        <property name="url" value="${Fasturl}"/>
+        <property name="username" value="${Fastusername}"/>
+        <property name="password" value="${Fastpassword}"/>
+    </bean>
+
+    <bean id="dataSourceMda" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${MdadriverClassName}"/>
+        <property name="url" value="${Mdaurl}"/>
+        <property name="username" value="${Mdausername}"/>
+        <property name="password" value="${Mdapassword}"/>
+    </bean>
+
+    <bean id="dataSourceUseraccess" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${UseraccessdriverClassName}"/>
+        <property name="url" value="${Useraccessurl}"/>
+        <property name="username" value="${Useraccessusername}"/>
+        <property name="password" value="${Useraccesspassword}"/>
+    </bean>
+
+
+	<bean id="sqlMapClient"
+          class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation">
+            <value>classpath:com/ckb/wo/server/dao/SqlMapConfig.xml</value>
+        </property>
+        <property name="useTransactionAwareDataSource">
+            <value>true</value>
+        </property>
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+    </bean>
+
+   <bean id="sqlMapClientFast"
+          class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation">
+            <value>classpath:com/ckb/wo/server/dao/fast/SqlMapConfig.xml</value>
+        </property>
+        <property name="useTransactionAwareDataSource">
+            <value>true</value>
+        </property>
+        <property name="dataSource">
+            <ref bean="dataSourceFast"/>
+        </property>
+    </bean>
+
+   <bean id="sqlMapClientMda"
+          class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation">
+            <value>classpath:com/ckb/wo/server/dao/mda/SqlMapConfig.xml</value>
+        </property>
+        <property name="useTransactionAwareDataSource">
+            <value>true</value>
+        </property>
+        <property name="dataSource">
+            <ref bean="dataSourceMda"/>
+        </property>
+    </bean>
+
+   <bean id="sqlMapClientUseraccess"
+          class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation">
+            <value>classpath:com/ckb/wo/server/dao/useraccess/SqlMapConfig.xml</value>
+        </property>
+        <property name="useTransactionAwareDataSource">
+            <value>true</value>
+        </property>
+        <property name="dataSource">
+            <ref bean="dataSourceUseraccess"/>
+        </property>
+    </bean>
+
+
+   <bean id="sqlMapClientTemplate"
+          class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+
+
+<!--Transaction Manager 	-->
+   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+  <aop:config>
+    <aop:pointcut id="serviceMethods" expression="execution(* com.ckb.wo.server.service.*.*(..))"/>
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
+  </aop:config>
+
+  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+      <tx:method name="insert*" propagation="REQUIRED"/>
+      <tx:method name="import*" propagation="REQUIRED"/>
+      <tx:method name="update*" propagation="REQUIRED"/>
+      <tx:method name="generate*" propagation="REQUIRED"/>
+      <tx:method name="approve*" propagation="REQUIRED"/>
+      <tx:method name="revisi*" propagation="REQUIRED"/>
+      <tx:method name="edit*" propagation="REQUIRED"/>
+      <tx:method name="delete*" propagation="REQUIRED"/>
+      <tx:method name="invoice*" propagation="REQUIRED"/>
+      <tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+    </tx:attributes>
+  </tx:advice>
+<!-- end of transaction management --> 		
+	 
+
+   <bean id="vendorService" class="com.ckb.wo.server.service.impl.VendorServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="vendorDao"/>
+   </bean>
+   <bean id="vendorserviceService" class="com.ckb.wo.server.service.impl.VendorServiceServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="vendorserviceDao"/>
+       <constructor-arg index="1" ref="chargeableweightcalculatorService"/>
+       <constructor-arg index="2" ref="orderDao"/>
+       <constructor-arg index="3" ref="servicemodedetailDao" />
+   </bean>
+   <bean id="locationService" class="com.ckb.wo.server.service.impl.LocationServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="locationDao"/>
+   </bean>
+   <bean id="servicetypeService" class="com.ckb.wo.server.service.impl.ServiceTypeServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="servicetypeDao"/>
+   </bean>
+   <bean id="servicemodeService" class="com.ckb.wo.server.service.impl.ServiceModeServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="servicemodeDao"/>
+   </bean>
+   <bean id="servicemodedetailService" class="com.ckb.wo.server.service.impl.ServiceModeDetailServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="servicemodedetailDao"/>
+   </bean>
+   <bean id="orderService" class="com.ckb.wo.server.service.impl.OrderServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="orderDao"/>
+   </bean>
+   <bean id="oricontainerService" class="com.ckb.wo.server.service.impl.OriContainerServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="oricontainerDao"/>
+   </bean>
+   <bean id="orivendorrateService" class="com.ckb.wo.server.service.impl.OriVendorRateServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="orivendorrateDao"/>
+   </bean>
+   <bean id="deliverytermService" class="com.ckb.wo.server.service.impl.DeliveryTermServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="deliverytermDao"/>
+   </bean>
+   <bean id="workorderService" class="com.ckb.wo.server.service.impl.WorkOrderServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="workorderDao"/>
+   </bean>
+   <bean id="notesService" class="com.ckb.wo.server.service.impl.NotesServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="notesDao"/>
+   </bean>
+   <bean id="currencyService" class="com.ckb.wo.server.service.impl.CurrencyServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="currencyDao"/>
+   </bean>
+   <bean id="userService" class="com.ckb.wo.server.service.impl.UserServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="userDao"/>
+   </bean>
+   <bean id="workorderflowService" class="com.ckb.wo.server.service.impl.WorkOrderFlowServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="workorderflowDao"/>
+   </bean>
+   <bean id="levelService" class="com.ckb.wo.server.service.impl.LevelServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="levelDao"/>
+   </bean>
+   <bean id="workorderhistoryService" class="com.ckb.wo.server.service.impl.WorkOrderHistoryServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="workorderhistoryDao"/>
+   </bean>
+   <bean id="permissionService" class="com.ckb.wo.server.service.impl.PermissionServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="permissionDao"/>
+   </bean>
+   <bean id="roleService" class="com.ckb.wo.server.service.impl.RoleServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="roleDao"/>
+   </bean>
+   <bean id="rolesusersService" class="com.ckb.wo.server.service.impl.RolesUsersServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="rolesusersDao"/>
+   </bean>
+   <bean id="rolespermissionsService" class="com.ckb.wo.server.service.impl.RolesPermissionsServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="rolespermissionsDao"/>
+   </bean>
+   <bean id="auditworkorderService" class="com.ckb.wo.server.service.impl.AuditWorkOrderServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="auditworkorderDao"/>
+   </bean>
+   <bean id="vendorservicedataconverterService" class="com.ckb.wo.server.service.impl.VendorServiceDataConverterServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="vendorDao" />
+       <constructor-arg index="1" ref="servicetypeDao" />
+       <constructor-arg index="2" ref="servicemodedetailDao" />
+       <constructor-arg index="3" ref="deliverytermDao" />
+       <constructor-arg index="4" ref="currencyDao" />
+       <constructor-arg index="5" ref="orderDao" />
+       <constructor-arg index="6" ref="locationDao" />
+       <constructor-arg index="7" ref="vendorService" />
+   </bean>
+   
+   <!-- FAST's service -->
+   <bean id="fastService" class="com.ckb.wo.server.service.impl.FastServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="fastuserDao"/>	
+       <constructor-arg index="1" ref="userDao"/>
+   </bean>
+   <!--  end of FAST -->
+   
+	<!--  Mda's service -->
+   <bean id="manifestdaService" class="com.ckb.wo.server.service.impl.ManifestDAServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="mdamanifestDao"/>	
+       <constructor-arg index="1" ref="mdamanifestdetailDao"/>
+       <constructor-arg index="2" ref="workordermanifestDao" />
+       <constructor-arg index="3" ref="workorderdaDao" />
+       <constructor-arg index="4" ref="workorderDao" />
+   </bean>	
+	<!-- end of Mda's service -->
+	
+	<!-- login service -->
+   <bean id="loginService" class="com.ckb.wo.server.service.impl.LoginServiceImpl" scope="prototype" >
+       <constructor-arg index="0" ref="useraccessDao"/>	
+       <constructor-arg index="1" ref="userDao"/>
+   </bean>	
+	<!-- end of login service -->
+		
+	<!--  Chargeableweightcalculator's service -->
+   <bean id="chargeableweightcalculatorService" class="com.ckb.wo.server.service.impl.ChargeableWeightCalculatorServiceImpl" scope="prototype" />
+	<!-- end of Chargeableweightcalculator's service -->
+	
+	<!--  email service -->
+  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="10.10.3.7"/>
+   </bean>
+
+   <bean id="workordermailService" class="com.ckb.wo.server.service.impl.WorkOrderMailServiceImpl">
+        <property name="mailSender" ref="mailSender"/>
+        <property name="velocityEngine" ref="velocityEngine"/>
+        <property name="sender" value="wo_dev_system_@ckb.co.id" />
+        <property name="costValidationTemplate" value="com/ckb/wo/server/mail/costvalidationtemplate.vm" />
+        <property name="editTemplate" value="com/ckb/wo/server/mail/edittemplate.vm" />
+        <property name="approvalTemplate" value="com/ckb/wo/server/mail/approvaltemplate.vm" />
+        <property name="cancelTemplate" value="com/ckb/wo/server/mail/canceltemplate.vm" />
+        <property name="revisionTemplate" value="com/ckb/wo/server/mail/revisiontemplate.vm" />
+        <property name="reminderTemplate" value="com/ckb/wo/server/mail/remindertemplate.vm" />
+        <property name="hasBeenApprovedTemplate" value="com/ckb/wo/server/mail/hasbeenapprovedtemplate.vm" />
+        <property name="costValidationTitle" value="[DEVELOPMENT]WorkOrder perlu divalidasi, WO no: " />
+        <property name="editTitle" value="[DEVELOPMENT]WorkOrder perlu diedit, WO no: " />
+        <property name="approvalTitle" value="[DEVELOPMENT]WorkOrder perlu approval, WO no: " />
+        <property name="cancelTitle" value="[DEVELOPMENT]WorkOrder dibatalkan, WO no: " />
+        <property name="revisionTitle" value="[DEVELOPMENT]WorkOrder direvisi, WO no: " />
+        <property name="reminderTitle" value="[DEVELOPMENT]Reminder : Butuh aksi dari anda, WO no: " />
+        <property name="hasBeenApprovedTitle" value="[DEVELOPMENT]WO berikut sudah disetujui, WO no: " />
+        <property name="customCostValidationTitle" value="WO no : " />
+        <property name="procEmailAddress" value="rhervina@ckb.co.id,fsitumeang@ckb.co.id,asidhiq@ckb.co.id,wsiestianty@ckb.co.id" /> <!--on development change it to asidhiq@ckb.co.id  -->
+        <property name="workorderflowDao" >
+            <ref bean="workorderflowDao"/>
+        </property>
+        <property name="levelDao">
+            <ref bean="levelDao"/>
+        </property>
+        <property name="userDao">
+            <ref bean="userDao" />
+        </property>
+    </bean>
+   
+   
+   <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+      <property name="velocityProperties">
+         <value>
+            resource.loader=class
+            class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+         </value>
+      </property>
+   </bean>
+
+   
+   	<!-- end of email service -->
+    <bean id="vendorDao" class="com.ckb.wo.server.dao.ibatis.impl.VendorDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+
+    <bean id="vendorserviceDao" class="com.ckb.wo.server.dao.ibatis.impl.VendorServiceDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+
+    <bean id="orderDao" class="com.ckb.wo.server.dao.ibatis.impl.OrderDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+
+    <bean id="locationDao" class="com.ckb.wo.server.dao.ibatis.impl.LocationDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="servicetypeDao" class="com.ckb.wo.server.dao.ibatis.impl.ServiceTypeDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="servicemodeDao" class="com.ckb.wo.server.dao.ibatis.impl.ServiceModeDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="servicemodedetailDao" class="com.ckb.wo.server.dao.ibatis.impl.ServiceModeDetailDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+
+    <bean id="oricontainerDao" class="com.ckb.wo.server.dao.ibatis.impl.OriContainerDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="orivendorrateDao" class="com.ckb.wo.server.dao.ibatis.impl.OriVendorRateDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="ibatistestDao" class="com.ckb.wo.server.dao.ibatis.impl.IbatisTestDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+   
+    <bean id="userDao" class="com.ckb.wo.server.dao.ibatis.impl.UserDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="areaDao" class="com.ckb.wo.server.dao.ibatis.impl.AreaDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="departmentDao" class="com.ckb.wo.server.dao.ibatis.impl.DepartmentDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+     <bean id="divisionDao" class="com.ckb.wo.server.dao.ibatis.impl.DivisionDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="jobtitleDao" class="com.ckb.wo.server.dao.ibatis.impl.JobTitleDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="levelDao" class="com.ckb.wo.server.dao.ibatis.impl.LevelDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="deliverytermDao" class="com.ckb.wo.server.dao.ibatis.impl.DeliveryTermDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="workorderDao" class="com.ckb.wo.server.dao.ibatis.impl.WorkOrderDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="notesDao" class="com.ckb.wo.server.dao.ibatis.impl.NotesDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="workorderdaDao" class="com.ckb.wo.server.dao.ibatis.impl.WorkOrderDADAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="workordermanifestDao" class="com.ckb.wo.server.dao.ibatis.impl.WorkOrderManifestDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="workorderservicemodedetailDao" class="com.ckb.wo.server.dao.ibatis.impl.WorkOrderServiceModeDetailDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="currencyDao" class="com.ckb.wo.server.dao.ibatis.impl.CurrencyDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="workorderflowDao" class="com.ckb.wo.server.dao.ibatis.impl.WorkOrderFlowDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="workorderhistoryDao" class="com.ckb.wo.server.dao.ibatis.impl.WorkOrderHistoryDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="roleDao" class="com.ckb.wo.server.dao.ibatis.impl.RoleDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="permissionDao" class="com.ckb.wo.server.dao.ibatis.impl.PermissionDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="rolespermissionsDao" class="com.ckb.wo.server.dao.ibatis.impl.RolesPermissionsDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="rolesusersDao" class="com.ckb.wo.server.dao.ibatis.impl.RolesUsersDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="auditworkorderDao" class="com.ckb.wo.server.dao.ibatis.impl.AuditWorkOrderDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient"/>
+        </property>
+    </bean>
+
+
+	<!-- FAST's dao beans -->
+    <bean id="fastuserDao" class="com.ckb.wo.server.dao.fast.ibatis.impl.FastUserDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClientFast"/>
+        </property>
+    </bean>
+    <bean id="fastlevelDao" class="com.ckb.wo.server.dao.fast.ibatis.impl.FastLevelDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClientFast"/>
+        </property>
+    </bean>
+    <bean id="fastjobtitleDao" class="com.ckb.wo.server.dao.fast.ibatis.impl.FastJobTitleDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClientFast"/>
+        </property>
+    </bean>
+    <bean id="fastdivisionDao" class="com.ckb.wo.server.dao.fast.ibatis.impl.FastDivisionDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClientFast"/>
+        </property>
+    </bean>
+    <bean id="fastdepartmentDao" class="com.ckb.wo.server.dao.fast.ibatis.impl.FastDepartmentDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClientFast"/>
+        </property>
+    </bean>
+	<!-- end of FAST's dao beans -->
+
+    <!--Mda's dao beans -->
+    <bean id="mdamanifestDao" class="com.ckb.wo.server.dao.mda.ibatis.impl.MdaManifestDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClientMda"/>
+        </property>
+    </bean>
+    <bean id="mdamanifestdetailDao" class="com.ckb.wo.server.dao.mda.ibatis.impl.MdaManifestDetailDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClientMda"/>
+        </property>
+    </bean>
+    <bean id="shipmentDao" class="com.ckb.wo.server.dao.mda.ibatis.impl.ShipmentDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClientMda"/>
+        </property>
+    </bean>
+
+    <!--end of Mda's dao beans -->
+    
+    <!--  User access dao beans -->
+    <bean id="useraccessDao" class="com.ckb.wo.server.dao.useraccess.ibatis.impl.UserAccessDAOImpl" scope="prototype">
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClientUseraccess"/>
+        </property>
+    </bean>
+
+</beans>
